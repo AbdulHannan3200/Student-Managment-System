@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using StudentManagmentSystem.Data;
+    using StudentManagmentSystem.DTOs;
     using StudentManagmentSystem.Entity;
     using StudentManagmentSystem.Service.Interface;
 
@@ -24,6 +25,13 @@
         {
             return _context.Students.Find(id);
         }
+
+        public Student GetStudentByFirstName(string name)
+        {
+            return _context.Students
+                .FirstOrDefault(s => s.FirstName.ToLower() == name.ToLower());
+        }
+
 
         public bool DeleteStudent(int id)
         {

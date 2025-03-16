@@ -3,6 +3,7 @@
 namespace StudentManagmentSystem.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using StudentManagmentSystem.DTOs;
     using StudentManagmentSystem.Entity;
     using StudentManagmentSystem.Service.Interface;
     using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace StudentManagmentSystem.Controllers
             return _studentService.GetAllStudents();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         public ActionResult<Student> GetStudent(int id)
         {
             var student = _studentService.GetStudentById(id);
@@ -32,7 +33,16 @@ namespace StudentManagmentSystem.Controllers
             return student;
         }
 
-        [HttpDelete("{id}")]
+        [HttpGet("name/{name}")]
+        public ActionResult<Student> GetStudentinfo(string name)
+        {
+            var student = _studentService.GetStudentByFirstName(name);
+            if (student == null) return NotFound();
+            return student;
+        }
+
+
+        [HttpDelete("id/{id}")]
         public IActionResult DeleteStudent(int id)
         {
             if (!_studentService.DeleteStudent(id)) return NotFound();
